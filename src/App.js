@@ -1,8 +1,11 @@
 import React from 'react'
-
+import StringCalculator from "./Component/StringCalculator"
 function App() {
   return (
-    <div>App</div>
+    <div>
+      <StringCalculator/>
+
+    </div>
   )
 }
 
