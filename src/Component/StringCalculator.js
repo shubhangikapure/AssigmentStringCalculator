@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 
-
-function App() {
+function StringCalculator() {
   const [input, setInput] = useState("");
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
   const add = (numbers) => {
-    if (numbers === "") return 0; 
+    if (numbers === "") return 0; // Return 0 for empty input
 
-    let delimiter = /,|\n/; 
-   
-     if (numbers.startsWith("//")) {
-      const parts = numbers.split("\n", 2); 
-      delimiter = new RegExp(parts[0].substring(2)); 
-      numbers = parts[1]; 
+    let delimiter = /,|\n/; // Default delimiters: comma or newline
+
+    // Check for custom delimiter
+    if (numbers.startsWith("//")) {
+      const parts = numbers.split("\n", 2); // Split into delimiter and numbers
+      delimiter = new RegExp(parts[0].substring(2)); // Extract the custom delimiter
+      numbers = parts[1]; // Get the numbers section
     }
 
- 
+    // Split the numbers string based on the delimiter
     const numArray = numbers.split(delimiter);
     const negatives = [];
     const sum = numArray.reduce((total, num) => {
       const value = parseInt(num, 10);
-      if (isNaN(value)) return total; 
-      if (value < 0) negatives.push(value); 
+      if (isNaN(value)) return total; // Ignore non-numeric values
+      if (value < 0) negatives.push(value); // Collect negative numbers
       return total + value;
     }, 0);
 
@@ -37,12 +37,12 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const sum = add(input); 
-      setResult(sum); 
-      setError(null); 
+      const sum = add(input); // Call add function
+      setResult(sum); // Set the result
+      setError(null); // Clear errors
     } catch (err) {
-      setError(err.message); 
-      setResult(null); 
+      setError(err.message); // Display error message
+      setResult(null); // Clear result if there's an error
     }
   };
 
@@ -66,4 +66,4 @@ function App() {
   );
 }
 
-export default App;
+export default StringCalculator;
